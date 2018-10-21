@@ -1,0 +1,258 @@
+# R Programming Exercise 1
+# Anggota Kelompok 
+# 1. M. Yusril Nugraha P (17523117)
+# 2. Zikri Dwi Andika (17523226)
+# 3. Muhammad Pandu Widodo (17523055)
+
+
+#SET
+
+# number 1: Create a universal set Q = {-100,-99, ..., 99, 100}
+#Membuaat himppunan semesta Q
+Q <- (-100:100)
+Q
+
+# number 2: If the last number of your NIM is even create a set
+#NIM 226
+#P nya genap semua
+P <- seq(-100, 100, by = 2)
+P
+
+# number 3: Create DDMMYY of today
+Q <- (-100:100)
+S <- c(1,5,1,0,2,0,1,8)
+R <- setdiff(Q,S)
+R
+
+# number 3: Create DDMMYY of today (Effective Way)
+Q <- (-100:100)
+S <- c(1,5,0,2,8)
+R <- setdiff(Q,S)
+R
+
+# number 4: P Union R
+union(P,R)
+
+# number 5: Q \ (P Union R)
+setdiff(Q, union(P,R))
+
+# number 6: (Q \ P) intersection (Q \ R)
+N <- setdiff(Q,P)
+Z <- setdiff(Q,R)
+Q <- intersect(N,Z)
+Q
+
+
+
+
+#------------------------------------------------#
+
+
+
+
+#FUNCTION
+
+# number 1: F(X,Y) = root X + y^2
+f1 <- function(x,y){
+  result <- sqrt(x) + y^2
+  return(result)
+}
+f1 (1,2)
+
+# number 2: G(x,y) = xy(x^2 + y/3)
+f2 <- function(x,y){
+  result <- x*y * ( x^2 + y/3 )
+  return(result)
+}
+f2 (31,8)
+
+# number 3: H(x,y) = root f(x,y) + 3 + g (x,y)
+f3 <- function(x,y){
+  result <- sqrt (f1(x,y) + 3 + f2 (x,y)) 
+  return(result)
+}
+f3 (30,5)
+
+# number 4: F1(x) = x^3 + x + 1 
+# F2 = root x - 1
+# F1(F2)
+f1 <- function(x){
+  result <- x^3 + x + 1
+  return(result)
+}
+f2 <- function(x){
+  result <- sqrt (x) - 1
+  return(result)
+}
+f1( f2(30) )
+
+# number 5: Graph Functions in One Plot
+F1 <- function(x){
+  result <- 1/x
+  return(result)
+}
+F2 <- function(x){
+  result <- 2/x
+  return(result)
+}
+F3 <- function(x){
+  result <- 3/x
+  return(result)
+}
+F4 <- function(x){
+  result <- 4/x
+  return(result)
+}
+F5 <- function(x){
+  result <- 5/x
+  return(result)
+}
+x <- c(-30,30)
+plot(x,F1(x), ylab = "y", type = "b", col="RoyalBlue")
+lines(x,F2 (x), col="skyblue")
+lines(x,F3 (x), col="DeepSkyBlue")
+lines(x,F4 (x), col="Navy")
+lines(x,F5 (x), col="Azure")
+
+
+# number 5: Graph Functions in One Plot (Another Way)
+F1 <- function(x){
+  result <- 1/x
+  return(result)
+}
+F2 <- function(x){
+  result <- 2/x
+  return(result)
+}
+F3 <- function(x){
+  result <- 3/x
+  return(result)
+}
+F4 <- function(x){
+  result <- 4/x
+  return(result)
+}
+F5 <- function(x){
+  result <- 5/x
+  return(result)
+}
+
+input <- seq(-1, 1, 0.1)
+matplot (input, cbind(F1(input),F2(input),F3(input),F4(input),F5(input)), type="p" , xlab="x", ylab="f(x)")
+
+
+
+
+#------------------------------------------------#
+
+
+
+
+#LIMIT
+
+# number 1
+f <- function(x) {
+  fx <- ( 1 - cos(x) ) / x
+  return(fx)
+}
+x <- Sym("x")
+Limit( f(x), x, 0 )
+
+# number 2
+f <- function(h){
+  fx <- ( (2*(h-3)^2)-18) / (h )
+  return(fx)
+}
+h <- Sym("h")
+Limit( f(h), h, 0 )
+
+# number 3
+f <- function(t){
+  fx <- ( t-sqrt(3*t+4) ) / (4-t)
+  return(fx)
+}
+t <- Sym("t")
+Limit( f(t), t, 4 )
+
+
+
+
+#------------------------------------------------#
+
+
+
+
+#DIFFERENTION
+
+# number 1: sqrt(x) * (x+1)
+y <- function(x,n) {
+  return( 1/2*sqrt(x) )
+}
+x <- Sym("x")
+Simplify( deriv ( sqrt(x) * (x+1) ) )
+
+# number 2: ( 2*x^2 - 3) / (sqrt(x) )
+y <- function(x,n) {
+  return( 1/2*sqrt(x) )
+}
+x <- Sym("x")
+Simplify( deriv ( ( 2*x^2 - 3) / (sqrt(x) ) ) )
+
+# number 3: (x-1) / (x+1)
+y <- function(x,n) {
+  return( n * x^(n-1) )
+}
+x <- Sym("x")
+Simplify( deriv ( (x-1) / (x+1) ) )
+
+
+
+
+#------------------------------------------------#
+
+
+
+
+#INTEGRATION
+
+
+
+
+# number 2:  1 - 5x^4
+integrand <- function(x){
+  return( 1-5 * x^4 )
+}
+integrate(f = integrand, lower = -1, upper = 2)
+library(Ryacas)
+x <- Sym ("x")
+Integrate( 1-5 * x^4, x )
+
+
+# number 3: x^4 - 3*x^2 + 5
+integrand <- function(x){
+  return(x^4 - 3*x^2 + 5)
+}
+integrate(f = integrand, lower = -2, upper = 2)
+library(Ryacas)
+x <- Sym ("x")
+Integrate( x^4 - 3*x^2 + 5, x )
+
+
+# number 4: x^2 + ( (1) / ( 2 sqrt (x) ) )
+integrand <- function(x){
+  return( x^2 + ( (1) / 2 * sqrt (x) ) )
+}
+integrate(f = integrand, lower = 1, upper = 4 )
+library(Ryacas)
+x <- Sym ("x")
+Integrate(  x^2 + ( (1) / 2 * sqrt (x) ),x ) 
+
+
+# number 5: (2 - 3*x)^2
+integrand <- function(x){
+  return ( (2 - 3*x)^2 )
+}
+integrate( f = integrand, lower = 0 , upper = 2 )
+library(Ryacas)
+x <- Sym("x")
+Integrate( (2 - 3*x)^2, x)
